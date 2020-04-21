@@ -27,11 +27,26 @@ public class Topic_12_Window_Tab {
 		// driver.get("");
 	}
 
-	public void TC_01_Popup() {
-		driver.get("https://www.javacodegeeks.com/");
+	@Test
+	public void TC_03_iFrame() {
+		driver.get("https://kyna.vn/");
+		driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='face-content']//iframe")));
+		String numberLikeFace = driver.findElement(By.xpath("//a[@title='Kyna.vn']/parent::div/following-sibling::div")).getText();
+		Assert.assertEquals("170K likes", numberLikeFace);
+
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("cs_chat_iframe");
+		driver.findElement(By.xpath("//label[text()='Hỗ trợ trực tuyến Kyna']/parent::div/parent::div/following-sibling::div")).click();
 		sleepInSecond(3);
+		Assert.assertTrue(driver.findElement(By.xpath("//input[@value='Gửi tin nhắn']")).isDisplayed());
+		driver.switchTo().defaultContent();
+		driver.findElement(By.xpath("//input[@placeholder='Tìm khóa học bạn quan tâm']")).sendKeys("Java");
+		driver.findElement(By.cssSelector(".search-button")).click();
+		sleepInSecond(3);
+		Assert.assertTrue(driver.findElement(By.xpath("//h1[text()=\"'Java'\"]")).isDisplayed());
 
 	}
+
 	@Test
 	public void TC_04_switchPage() {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
@@ -84,26 +99,25 @@ public class Topic_12_Window_Tab {
 		switchToWindowByTitle(parentWindowTitle);
 		clickElementByJS(driver.findElement(By.xpath("//a[text()='Giới thiệu về công ty']")));
 		sleepInSecond(3);
-		switchToWindowByTitle("Kyna.vn | Không tìm thấy trang");
+		// switchToWindowByTitle("Kyna.vn | Không tìm thấy trang");
 		Assert.assertEquals(driver.getCurrentUrl(), "https://kyna.vn/p/kyna/gioi-thieu");
 
-		//switchToWindowByTitle(parentWindowTitle);
-		//System.out.println(driver.getCurrentUrl());
+		driver.navigate().back();
 		sleepInSecond(3);
 		clickElementByJS(driver.findElement(By.xpath("//img[@alt='android-app-icon']")));
 		switchToWindowByTitle("KYNA - Học online cùng chuyên gia - Apps on Google Play");
 		Assert.assertEquals(driver.getCurrentUrl(), "https://play.google.com/store/apps/details?id=com.kyna.app");
 		switchToWindowByTitle(parentWindowTitle);
-        System.out.println(driver.getCurrentUrl());
-		
+		System.out.println(driver.getCurrentUrl());
+
 		driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='face-content']//iframe")));
 		clickElementByJS(driver.findElement(By.xpath("//a[@title='Kyna.vn']")));
 		sleepInSecond(3);
 		switchToWindowByTitle("Kyna.vn - Trang chủ | Facebook");
-		Assert.assertEquals(driver.getCurrentUrl(), "https://www.facebook.com/kyna.vn/");
-		driver.switchTo().defaultContent();
+		Assert.assertEquals(driver.getCurrentUrl(), "https://www.facebook.com/kyna.vn");
+		// driver.switchTo().defaultContent();
 
-		//switchToWindowByTitle(parentWindowTitle);
+		switchToWindowByTitle(parentWindowTitle);
 		clickElementByJS(driver.findElement(By.xpath("//img[@alt='kynabiz.vn']")));
 		sleepInSecond(3);
 		switchToWindowByTitle("Giải pháp đào tạo nhân sự online toàn diện - KynaBiz.vn");
@@ -112,7 +126,9 @@ public class Topic_12_Window_Tab {
 		closeWindoWithoutParentWindow(parentWindowID);
 		Assert.assertEquals(driver.getCurrentUrl(), "https://kyna.vn/");
 	}
+
 	@Test
+
 	public void TC_06_WindowTab06() {
 		driver.get("http://live.demoguru99.com/index.php/");
 		String parentWindowID = driver.getWindowHandle();
@@ -130,12 +146,6 @@ public class Topic_12_Window_Tab {
 		alert.accept();
 		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='The comparison list was cleared.']")).isDisplayed());
 	}
-
-	@Test
-	public void TC_04_Tagname() {
-
-	}
-
 
 	public void switchToWindowByTitle(String title) {
 		Set<String> allWindows = driver.getWindowHandles();
