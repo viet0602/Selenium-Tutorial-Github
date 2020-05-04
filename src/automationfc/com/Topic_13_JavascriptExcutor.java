@@ -18,6 +18,7 @@ public class Topic_13_JavascriptExcutor {
 	WebDriver driver;
 	JavascriptExecutor jsExecutor;
 	WebElement element;
+	String email, password;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -25,6 +26,8 @@ public class Topic_13_JavascriptExcutor {
 		jsExecutor = (JavascriptExecutor) driver;
 		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		email= "viettesting" + randomNumber() + "@gmail.com";
+	    password = "123123";
 	}
 
 	public void TC_01_ID() {
@@ -60,10 +63,9 @@ public class Topic_13_JavascriptExcutor {
 
 	}
 
-	@Test
+
 	public void TC_02_Class() {
-		By addressTextBox = By.xpath("//textarea[@name='addr']");
-		String email = "viettesting" + randomNumber() + "@gmail.com";
+
 		String name = "Nguyen Van A";
 		String gender = "male";
 		String dob = "2020-04-01";
@@ -72,7 +74,17 @@ public class Topic_13_JavascriptExcutor {
 		String state = "Viet nam";
 		String pin = "989898";
 		String phone = "0987131567";
-		String password = "123123";
+		
+
+		By nameTextBox = By.xpath("//input[@name='name']");
+		By dateOfBirthTextBox = By.xpath("//input[@name='dob']");
+		By addressTextBox = By.xpath("//textarea[@name='addr']");
+		By cityTextBox = By.xpath("//input[@name='city']");
+		By stateTextBox = By.xpath("//input[@name='state']");
+		By pinTextBox = By.xpath("//input[@name='pinno']");
+		By phoneTextBox = By.xpath("//input[@name='telephoneno']");
+		By emailTextBox = By.xpath("//input[@name='emailid']");
+		By passwordTextBox = By.xpath("//input[@name='password']");
 
 		navigateToUrlByJS("http://demo.guru99.com/v4");
 		clickToElementByJS("//a[text()='here']");
@@ -88,16 +100,15 @@ public class Topic_13_JavascriptExcutor {
 		sleepInSecond(3);
 
 		clickToElementByJS("//a[text()='New Customer']");
-		sendkeyToElementByJS("//input[@name='name']", name);
-		sendkeyToElementByJS("//input[@name='dob']", dob);
-		sendkeyToElementByJS("//textarea[@name='addr']", add);
-		//driver.findElement(addressTextBox).sendKeys(add);
-		sendkeyToElementByJS("//input[@name='city']", city);
-		sendkeyToElementByJS("//input[@name='state']", state);
-		sendkeyToElementByJS("//input[@name='pinno']", pin);
-		sendkeyToElementByJS("//input[@name='telephoneno']", phone);
-		sendkeyToElementByJS("//input[@name='emailid']", email);
-		sendkeyToElementByJS("//input[@name='password']", password);
+		driver.findElement(nameTextBox).sendKeys(name);
+		driver.findElement(dateOfBirthTextBox).sendKeys(dob);
+		driver.findElement(addressTextBox).sendKeys(add);
+		driver.findElement(cityTextBox).sendKeys(city);
+		driver.findElement(stateTextBox).sendKeys(state);
+		driver.findElement(pinTextBox).sendKeys(pin);
+		driver.findElement(phoneTextBox).sendKeys(phone);
+		driver.findElement(emailTextBox).sendKeys(email);
+		driver.findElement(passwordTextBox).sendKeys(password);
 		clickToElementByJS("//input[@name='sub']");
 
 		Assert.assertTrue(driver.findElement(By.xpath("//p[text()='Customer Registered Successfully!!!']")).isDisplayed());
@@ -113,9 +124,36 @@ public class Topic_13_JavascriptExcutor {
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Email']/following-sibling::td")).getText(), email);
 
 	}
-
+	@Test
 	public void TC_03_Name() {
-
+		String firstname, lastname, confirmpw;
+		firstname="viet";
+		lastname="testing";
+		confirmpw="123123";
+		
+		navigateToUrlByJS("http://live.demoguru99.com/");
+		clickToElementByJS("//div[@id='header-account']//a[text()='My Account']");
+		clickToElementByJS("//div[@class='col-1 new-users']//a[@title='Create an Account']");
+		
+		sendkeyToElementByJS("//input[@id='firstname']", firstname);
+		sendkeyToElementByJS("//input[@id='lastname']", lastname);
+		sendkeyToElementByJS("//input[@id='email_address']", email);
+		sendkeyToElementByJS("//input[@id='password']", password);
+		sendkeyToElementByJS("//input[@id='confirmation']", confirmpw);
+		clickToElementByJS("//span[text()='Register']");
+		//isTextInInnerHTML("Thank you for registering with Main Website Store.");
+	//	Assert.assertTrue(isTextInInnerHTML("Praesent ipsum libero, auctor ac, tempus nec, tempor nec, justo."));
+		Assert.assertTrue(isTextInInnerHTML("Thank you for registering with Main Website Store."));
+		sleepInSecond(3);
+		clickToElementByJS("//a[text()='Log Out']");
+		
+		// Cho nay chi phai cho sleep 5-10s no moi pass duoc
+		// Vi sau khi click xong no sẽ vào check ngay
+		// Mà check ngay thì ko có
+		sleepInSecond(3);
+		Assert.assertTrue(isTextInInnerHTML("YOU ARE NOW LOGGED OUT"));
+		//Assert.assertTrue(isTextInInnerHTML("You are now logged out"));
+		
 	}
 
 	public void TC_04_Tagname() {

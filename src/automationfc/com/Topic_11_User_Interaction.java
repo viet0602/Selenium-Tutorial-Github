@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -24,6 +23,7 @@ public class Topic_11_User_Interaction {
 
 	@BeforeClass
 	public void beforeClass() {
+		
 		driver = new FirefoxDriver();
 		action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
@@ -90,7 +90,7 @@ public class Topic_11_User_Interaction {
 	public void turnOffNotification() {
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("dom.webnotifications.enable", false);
-		driver = new FirefoxDriver(profile);
+	//	driver = new FirefoxDriver(profile);
 	}
 
 	public void sleepInSecond(long timeout) {

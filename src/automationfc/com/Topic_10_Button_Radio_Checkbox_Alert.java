@@ -88,7 +88,7 @@ public class Topic_10_Button_Radio_Checkbox_Alert {
 	public void TC_04_AcceptAlert() {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		driver.findElement(By.xpath("//button[text()='Click for JS Alert']")).click();
-		alert=driver.switchTo().alert();
+		alert = driver.switchTo().alert();
 		String message=alert.getText();
 		Assert.assertEquals(message, "I am a JS Alert");
 		alert.accept();
