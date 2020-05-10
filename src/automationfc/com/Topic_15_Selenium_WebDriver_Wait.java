@@ -50,7 +50,7 @@ public class Topic_15_Selenium_WebDriver_Wait {
 		Assert.assertTrue(driver.findElement(By.xpath("//h4[contains(text(),'Hello World!')]")).isDisplayed());
 	}
 	@Test
-	public void TC_05_ImplicitWait() {
+	public void TC_05_AjaxLoading_ImplicitWait() {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.get("http://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
 		driver.findElement(By.xpath("//a[contains(text(),'27')]")).click();
@@ -60,7 +60,7 @@ public class Topic_15_Selenium_WebDriver_Wait {
 	}
 
 
-	public void TC_05_ExplicitWait() {
+	public void TC_05_AjaxLoading_ExplicitWait() {
 		driver.get("http://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
 		driver.findElement(By.xpath("//a[contains(text(),'27')]")).click();
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[not(@style='display:none;')]/div[@class='raDiv']")));
