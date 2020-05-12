@@ -36,7 +36,6 @@ public class Topic_14_Upload_Files {
 
 	}
 
-	@Test
 	public void TC_01_UploadFile_By_Sendkeys() {
 		driver.get("http://blueimp.github.com/jQuery-File-Upload/");
 		WebElement uploadFile = driver.findElement(By.xpath("//input[@name='files[]']"));
@@ -78,13 +77,16 @@ public class Topic_14_Upload_Files {
 		Assert.assertTrue(driver.findElement(By.xpath("//td[@class='sorting_1' and text()='" + thailand3 + "']")).isDisplayed());
 		// Upload
 		// driver.findElement(By.xpath("//button[text()='Upload']")).click();
+		driver.findElement(By.xpath("//button[text()='Upload']")).isDisplayed();
 		clickToElementByJS("//button[text()='Upload']");
 		sleepInSecond(15);
 
 		// driver.findElement(By.xpath("//i[text()='Ok']")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'Ok')]")).isDisplayed();
 		clickToElementByJS("//button[contains(text(),'Ok')]");
 
 		sleepInSecond(3);
+		driver.findElement(By.xpath("//td[text()='Download link']//following-sibling::td/a")).isDisplayed();
 		driver.findElement(By.xpath("//td[text()='Download link']//following-sibling::td/a")).click();
 		sleepInSecond(3);
 
